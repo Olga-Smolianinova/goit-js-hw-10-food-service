@@ -1,4 +1,4 @@
-// Добавь функционал изменения темы при нажатии (событие change) на чекбокс #theme-switch-toggle в тулбаре.
+// / Добавь функционал изменения темы при нажатии (событие change) на чекбокс #theme-switch-toggle в тулбаре.
 
 //   <div class="theme-switch__control">
 //     <input
@@ -25,41 +25,28 @@ const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
 };
-// console.log(Theme);
 
 // ПОЛУЧАЕМ ДОСТУПЫ К ЭЛЕМЕНТАМ
-const bodyRef = document.querySelector('body');
-// console.dir(bodyRef);
-
-const inputRef = document.querySelector('.theme-switch__toggle');
-// console.log(inputRef);
+const refs = {
+  body: document.querySelector('body'),
+  checkbox: document.querySelector('.theme-switch__toggle'),
+};
+console.log(refs);
 
 // ВЕШАЕМ СЛУШАТЕЛЯ СОБЫТИЯ. При изменении темы, на элемент body добавляем класс dark-theme
-inputRef.addEventListener('change', handleThemeChange);
+refs.checkbox.addEventListener('change', handleThemeChange);
 
 function handleThemeChange(event) {
-  bodyRef.classList.toggle(Theme.DARK);
+  //   console.log(event);
+  console.dir(refs.checkbox.checked);
 
-  bodyRef.classList.toggle(Theme.LIGHT);
-
-  // const checkbox = event.currentTarget.checked;
-  // console.dir(checkbox);
-
-  localStorage.setItem('theme', bodyRef.className);
-}
-
-function handleThemeSave(event) {
-  // console.log(event.currentTarget);
   const savedTheme = localStorage.getItem('theme');
-  console.log(savedTheme);
-  console.dir(inputRef.checked);
-
-  if (savedTheme === Theme.DARK) {
-    bodyRef.classList.add(Theme.DARK);
-    inputRef.checked = true;
-  } else {
-    bodyRef.classList.add(Theme.LIGHT);
-    // inputRef.checked = false;
+  if (!refs.checkbox.checked) {
+    refs.body.classList.toggle(Theme.LIGHT);
+    localStorage.setItem('theme', Theme.LIGHT);
+  }
+  if (refs.checkbox.checked) {
+    refs.body.classList.toggle(Theme.DARK);
+    localStorage.setItem('theme', Theme.DARK);
   }
 }
-handleThemeSave();
