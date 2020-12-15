@@ -34,29 +34,30 @@ const bodyRef = document.querySelector('body');
 const inputRef = document.querySelector('.theme-switch__toggle');
 // console.log(inputRef);
 
-// ВЕШАЕМ СЛУШАТЕЛЯ СОБЫТИЯ. При изменении темы, на элемент body добавляем класс dark-theme
+// ВЕШАЕМ СЛУШАТЕЛЯ СОБЫТИЯ.
 inputRef.addEventListener('change', handleThemeChange);
 
+// При изменении темы, на элемент body добавляем класс dark-theme
 function handleThemeChange(event) {
   bodyRef.classList.toggle(Theme.DARK);
-
   bodyRef.classList.toggle(Theme.LIGHT);
 
   // const checkbox = event.currentTarget.checked;
   // console.dir(checkbox);
 
+  // Используем метод setItem чтобы записать и отображать данные в local Storage
   localStorage.setItem('theme', bodyRef.className);
 }
 
+// Чтобы выбранная тема сохранялась между перезагрузками страницы. Для хранения темы используем свойство getItem
 function handleThemeSave(event) {
-  // console.log(event.currentTarget);
   const savedTheme = localStorage.getItem('theme');
-  console.log(savedTheme);
-  console.dir(inputRef.checked);
+  // console.log(savedTheme);
+  // console.dir(inputRef.checked);
 
   if (savedTheme === Theme.DARK) {
     bodyRef.classList.add(Theme.DARK);
-    inputRef.checked = true;
+    inputRef.checked = true; //Если при загрузке страницы тема тёмная, не забудь поставить свойство checked у чекбокса #theme-switch-toggle в true, чтобы ползунок сдвинулся в правильное положение.
   } else {
     bodyRef.classList.add(Theme.LIGHT);
     // inputRef.checked = false;
